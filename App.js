@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   Text,
   View,
-  PermissionsAndroid,
   TouchableOpacity,
 } from 'react-native';
 import TrackPlayer, {
@@ -13,13 +12,11 @@ import TrackPlayer, {
   useTrackPlayerEvents,
   TrackPlayerEvents,
 } from 'react-native-track-player';
-import MusicFiles, {Constants} from 'react-native-get-music-files-v3dev-test';
 // docs: https://www.npmjs.com/package/@fortawesome/react-native-fontawesome
 // icons: https://fontawesome.com/icons?d=gallery&p=2&c=audio-video
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
-// import icons, only in app.js
-import {library} from '@fortawesome/fontawesome-svg-core';
+// import fontAwesome icons, only in app.js
 import {
   faPause,
   faPlay,
@@ -27,54 +24,13 @@ import {
   faStepForward,
   faStepBackward,
 } from '@fortawesome/free-solid-svg-icons';
-library.add(faPause, faPlay, faEllipsisH, faStepForward, faStepBackward);
+import {library as fontAwesome} from '@fortawesome/fontawesome-svg-core';
+fontAwesome.add(faPause, faPlay, faEllipsisH, faStepForward, faStepBackward);
+
+import {secondsToTimeString} from './app/utils';
+import {requestFilesPermission, setupTrackplayer} from './app/providers/music';
 
 const App = () => {
-  const requestFilesPermission = async () => {
-    try {
-      let granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-      );
-      console.log('permited', granted);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getAllSongs = () =>
-    MusicFiles.getAll({
-      cover: false,
-      batchSize: 0,
-      batchNumber: 0,
-      sortBy: Constants.SortBy.Title,
-      sortOrder: Constants.SortOrder.Ascending,
-    });
-
-  const setupTrackplayer = async () => {
-    try {
-      let {length, results: songs} = await getAllSongs();
-      songs = songs.map((song) => ({...song, url: song.path}));
-      console.log('tracks: ', length);
-      await TrackPlayer.setupPlayer();
-      const desiredCapabilities = [
-        TrackPlayer.CAPABILITY_PLAY,
-        TrackPlayer.CAPABILITY_PAUSE,
-        TrackPlayer.CAPABILITY_STOP,
-        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-      ];
-      await TrackPlayer.updateOptions({
-        stopWithApp: false,
-        capabilities: desiredCapabilities,
-        notificationCapabilities: desiredCapabilities,
-        compactCapabilities: desiredCapabilities,
-      });
-      await TrackPlayer.add(songs);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const [currentSongIdStr, setcurrentSongIdStr] = useState(null);
   useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_TRACK_CHANGED], (event) => {
     console.log('event.', event);
@@ -88,22 +44,7 @@ const App = () => {
     console.log('mounted');
 
     return () => TrackPlayer.destroy();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const secondsToTimeString = (seconds) => {
-    let min = Math.floor(seconds / 60);
-    let sec = Math.floor(seconds - min * 60);
-
-    if (min < 10) {
-      min = '0' + min;
-    }
-    if (sec < 10) {
-      sec = '0' + sec;
-    }
-
-    return `${min}:${sec}`;
-  };
 
   const {position, duration} = useTrackPlayerProgress();
   const percentageProgress = `${(position * 100) / duration}%`;
@@ -117,9 +58,7 @@ const App = () => {
             <Text style={styles.title}>{secondsToTimeString(duration)}</Text>
           </View>
           <View style={styles.nusicData}>
-            <Text style={styles.songName}>
-              {`current track:'${currentSongIdStr}'`}
-            </Text>
+            <Text style={styles.songName}>{currentSongIdStr}</Text>
             <FontAwesomeIcon
               style={styles.FontAwesomeIcon}
               size={22}
