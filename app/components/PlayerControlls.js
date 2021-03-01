@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import TrackPlayer, {useTrackPlayerProgress} from 'react-native-track-player';
 // docs: https://www.npmjs.com/package/@fortawesome/react-native-fontawesome
 // icons: https://fontawesome.com/icons?d=gallery&p=2&c=audio-video
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {secondsToTimeString} from '../utils';
 
 export default () => {
   const {position, duration} = useTrackPlayerProgress();
@@ -13,6 +14,10 @@ export default () => {
     <>
       <View style={styles.progresBar}>
         <View style={[styles.progress, {width: percentageProgress}]} />
+      </View>
+      <View style={styles.timesBar}>
+        <Text style={styles.time}>{secondsToTimeString(position)}</Text>
+        <Text style={styles.time}>{secondsToTimeString(duration)}</Text>
       </View>
       <View style={styles.playerControls}>
         <TouchableOpacity
@@ -73,12 +78,23 @@ const styles = StyleSheet.create({
   playerControls: {
     display: 'flex',
     flexDirection: 'row',
-    height: 80,
     backgroundColor: '#575757',
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingLeft: 60,
-    paddingRight: 60,
+    paddingHorizontal: 60,
+    paddingTop: 8,
+    paddingBottom: 24,
+  },
+  timesBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: '#575757',
+    justifyContent: 'space-between',
+    paddingHorizontal: 3,
+  },
+  time: {
+    fontSize: 11,
+    color: 'white',
   },
   btnWraper: {
     padding: 6,

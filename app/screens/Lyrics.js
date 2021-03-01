@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import TrackPlayer, {
-  useTrackPlayerProgress,
   useTrackPlayerEvents,
   TrackPlayerEvents,
 } from 'react-native-track-player';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {secondsToTimeString, getSongName} from '../utils';
+import {getSongName} from '../utils';
 
 // LyricVew component
 export default () => {
@@ -22,12 +21,10 @@ export default () => {
     },
   );
 
-  const {position, duration} = useTrackPlayerProgress();
-
   return (
     <View style={[St.container, St.main]}>
       <View style={[St.container]}>
-        <Text style={St.title}>{secondsToTimeString(duration)}</Text>
+        <Text style={St.title}>LR 1</Text>
       </View>
       <View style={St.nusicData}>
         <Text style={St.songName}>{getSongName(currentSongOBJ)}</Text>
@@ -38,7 +35,7 @@ export default () => {
         />
       </View>
       <View style={[St.container]}>
-        <Text style={St.title}>{secondsToTimeString(position)}</Text>
+        <Text style={St.title}>LR 2</Text>
       </View>
     </View>
   );
