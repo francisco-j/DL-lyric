@@ -1,67 +1,56 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {
+import TrackPlayer, {
   useTrackPlayerProgress,
   useTrackPlayerEvents,
   TrackPlayerEvents,
 } from 'react-native-track-player';
-// docs: https://www.npmjs.com/package/@fortawesome/react-native-fontawesome
-// icons: https://fontawesome.com/icons?d=gallery&p=2&c=audio-video
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-
-// import fontAwesome icons, only in app.js
-import {
-  faPause,
-  faPlay,
-  faEllipsisH,
-  faStepForward,
-  faStepBackward,
-} from '@fortawesome/free-solid-svg-icons';
-import {library as fontAwesome} from '@fortawesome/fontawesome-svg-core';
-fontAwesome.add(faPause, faPlay, faEllipsisH, faStepForward, faStepBackward);
-
-import {secondsToTimeString} from '../utils';
+import {secondsToTimeString, getSongName} from '../utils';
 
 // LyricVew component
 export default () => {
-  const [currentSongIdStr, setcurrentSongIdStr] = useState(null);
-  useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_TRACK_CHANGED], (event) => {
-    console.log('event.', event);
-    setcurrentSongIdStr(event.nextTrack);
-  });
+  const [currentSongOBJ, setCurrentSongOBJ] = useState(null);
+  useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_TRACK_CHANGED],
+    async (event) => {
+      if (!event?.nextTrack) return setCurrentSongOBJ(null);
+
+      let trackObj = await TrackPlayer.getTrack(event.nextTrack);
+      if (!trackObj) return setCurrentSongOBJ(null);
+
+      return setCurrentSongOBJ(trackObj);
+    },
+  );
 
   const {position, duration} = useTrackPlayerProgress();
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.container, styles.fill]}>
-        <Text style={styles.title}>{secondsToTimeString(duration)}</Text>
+    <View style={[St.container, St.main]}>
+      <View style={[St.container]}>
+        <Text style={St.title}>{secondsToTimeString(duration)}</Text>
       </View>
-      <View style={styles.nusicData}>
-        <Text style={styles.songName}>{currentSongIdStr}</Text>
+      <View style={St.nusicData}>
+        <Text style={St.songName}>{getSongName(currentSongOBJ)}</Text>
         <FontAwesomeIcon
-          style={styles.FontAwesomeIcon}
+          style={St.FontAwesomeIcon}
           size={22}
           icon="ellipsis-h"
         />
       </View>
-      <View style={[styles.container, styles.fill]}>
-        <Text style={styles.title}>{secondsToTimeString(position)}</Text>
+      <View style={[St.container]}>
+        <Text style={St.title}>{secondsToTimeString(position)}</Text>
       </View>
     </View>
   );
 };
 
-/** check:
- * https://thoughtbot.com/blog/structure-for-styling-in-react-native
- */
-const styles = StyleSheet.create({
-  fill: {
-    flex: 1,
+const St = StyleSheet.create({
+  main: {
+    flex: 9,
   },
   container: {
     display: 'flex',
-    flex: 9,
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: '#151515',
     justifyContent: 'center',

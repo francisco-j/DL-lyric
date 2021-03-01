@@ -1,4 +1,4 @@
-function secondsToTimeString(seconds) {
+export function secondsToTimeString(seconds) {
   let min = Math.floor(seconds / 60);
   let sec = Math.floor(seconds - min * 60);
 
@@ -12,4 +12,8 @@ function secondsToTimeString(seconds) {
   return `${min}:${sec}`;
 }
 
-export {secondsToTimeString};
+export const getSongName = (obj) => {
+  // currentSong props: album, artist, duration, id, path, title, url
+  if (!obj?.title) return '-';
+  return obj.title;
+};
