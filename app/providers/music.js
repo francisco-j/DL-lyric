@@ -3,7 +3,7 @@ import MusicFiles, {Constants} from 'react-native-get-music-files-v3dev-test';
 import TrackPlayer from 'react-native-track-player';
 
 /** private
- * @returns {Object[]} array obf objetcts representing each file
+ * @returns {Object[]} array of objetcts representing each file
  */
 const getAllSongs = () =>
   MusicFiles.getAll({
@@ -28,8 +28,10 @@ export const requestFilesPermission = async () => {
 export const setupTrackplayer = async () => {
   try {
     let {length, results: songs} = await getAllSongs();
-    songs = songs.map((song) => ({...song, url: song.path}));
     console.log('tracks: ', length);
+
+    songs = songs.map((song) => ({...song, url: song.path}));
+
     await TrackPlayer.setupPlayer();
     const desiredCapabilities = [
       TrackPlayer.CAPABILITY_PLAY,

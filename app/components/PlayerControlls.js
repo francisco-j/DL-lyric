@@ -60,14 +60,6 @@ export default () => {
  * https://thoughtbot.com/blog/structure-for-styling-in-react-native
  */
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flex: 9,
-    flexDirection: 'column',
-    backgroundColor: '#151515',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   progresBar: {
     display: 'flex',
     height: 4,
