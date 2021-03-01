@@ -10,7 +10,10 @@ import {secondsToTimeString} from '../utils';
 
 export default () => {
   const {position, duration} = useTrackPlayerProgress();
-  const percentageProgress = `${(position * 100) / duration}%`;
+  const percentageProgress = () => {
+    if (!duration) return "0%";
+    return `${(position * 100) / duration}%`;
+  }
 
   const [playing, setPlaying] = useState(false);
   useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_STATE], (event) => {
@@ -24,7 +27,7 @@ export default () => {
   return (
     <>
       <View style={styles.progresBar}>
-        <View style={[styles.progress, {width: percentageProgress}]} />
+        <View style={[styles.progress, {width: percentageProgress()}]} />
       </View>
       <View style={styles.timesBar}>
         <Text style={styles.time}>{secondsToTimeString(position)}</Text>
