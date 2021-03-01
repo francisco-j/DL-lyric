@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
-import TrackPlayer, {useTrackPlayerProgress} from 'react-native-track-player';
-// docs: https://www.npmjs.com/package/@fortawesome/react-native-fontawesome
-// icons: https://fontawesome.com/icons?d=gallery&p=2&c=audio-video
+import TrackPlayer, {
+  useTrackPlayerProgress,
+  useTrackPlayerEvents,
+  TrackPlayerEvents,
+} from 'react-native-track-player';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {secondsToTimeString} from '../utils';
 
 export default () => {
   const {position, duration} = useTrackPlayerProgress();
   const percentageProgress = `${(position * 100) / duration}%`;
+
+  const [playing, setPlaying] = useState(false);
+  useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_STATE], (event) => {
+    setPlaying(
+      event.state === TrackPlayer.STATE_PLAYING ||
+      event.state === TrackPlayer.STATE_BUFFERING
+    );
+  });
+
 
   return (
     <>
@@ -30,21 +41,14 @@ export default () => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => TrackPlayer.pause()}
+          onPress={() => {
+            playing ? TrackPlayer.pause() : TrackPlayer.play();
+          }}
           style={styles.btnWraper}>
           <FontAwesomeIcon
             style={styles.FontAwesomeIcon}
             size={25}
-            icon="pause"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => TrackPlayer.play()}
-          style={styles.btnWraper}>
-          <FontAwesomeIcon
-            style={styles.FontAwesomeIcon}
-            size={25}
-            icon="play"
+            icon={playing ? 'pause' : 'play'}
           />
         </TouchableOpacity>
         <TouchableOpacity
