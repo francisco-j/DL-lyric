@@ -3,11 +3,12 @@ import {StyleSheet, Text, View} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {useCurrentTrack} from '../customHooks/track';
 import {getSongName} from '../utils';
-// import {} from './app/providers/lyric';
+import {getLyricFiles} from '../providers/lyric';
 
 // LyricVew - functional component
 export default () => {
   const [currentSongOBJ] = useCurrentTrack();
+  const lyricFiles = getLyricFiles(currentSongOBJ?.path);
 
   return (
     <View style={[St.container, St.main]}>

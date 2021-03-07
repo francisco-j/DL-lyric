@@ -17,3 +17,28 @@ export const getSongName = (obj) => {
   if (!obj?.title && !obj?.artist) return '-';
   return `${obj.title || ''} - ${obj.artist || ''}`;
 };
+
+/**
+ * @typedef {Object} SplitPath
+ * @property {string} dirname
+ * @property {string} filename
+ * @property {string} extension
+ * @property {string} params
+ */
+/**
+ * The ultimate split path. source: https://gist.github.com/nopjia/e94b5f822744b60cd106
+ * Extracts dirname, filename, extension, and trailing URL params.
+ * @param  {string} path
+ * @return {SplitPath} Object containing fields "dirname", "filename", "extension", and "params"
+ */
+export const splitPath = (path) => {
+  let result = path
+    .replace(/\\/g, '/')
+    .match(/(.*\/)?(\..*?|.*?)(\.[^.]*?)?(#.*$|\?.*$|$)/);
+  return {
+    dirname: result[1] || '',
+    filename: result[2] || '',
+    extension: result[3] || '',
+    params: result[4] || '',
+  };
+};
