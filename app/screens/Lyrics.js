@@ -1,25 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import TrackPlayer, {
-  useTrackPlayerEvents,
-  TrackPlayerEvents,
-} from 'react-native-track-player';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {useCurrentTrack} from '../customHooks/track';
 import {getSongName} from '../utils';
+// import {} from './app/providers/lyric';
 
-// LyricVew component
+// LyricVew - functional component
 export default () => {
-  const [currentSongOBJ, setCurrentSongOBJ] = useState(null);
-  useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_TRACK_CHANGED],
-    async (event) => {
-      if (!event?.nextTrack) return setCurrentSongOBJ(null);
-
-      let trackObj = await TrackPlayer.getTrack(event.nextTrack);
-      if (!trackObj) return setCurrentSongOBJ(null);
-
-      return setCurrentSongOBJ(trackObj);
-    },
-  );
+  const [currentSongOBJ] = useCurrentTrack();
 
   return (
     <View style={[St.container, St.main]}>
