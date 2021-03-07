@@ -14,6 +14,6 @@ export function secondsToTimeString(seconds) {
 
 export const getSongName = (obj) => {
   // currentSong props: album, artist, duration, id, path, title, url
-  if (!obj?.title) return '-';
-  return obj.title;
+  if (!obj?.title && !obj?.artist) return '-';
+  return `${obj.title || ''} - ${obj.artist || ''}`;
 };
