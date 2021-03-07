@@ -1,33 +1,27 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import TrackPlayer, {
   useTrackPlayerProgress,
-  useTrackPlayerEvents,
-  TrackPlayerEvents,
+  usePlaybackState,
 } from 'react-native-track-player';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {secondsToTimeString} from '../utils';
 
 export default () => {
-  const {position, duration} = useTrackPlayerProgress();
-  const percentageProgress = () => {
-    if (!duration) return "0%";
-    return `${(position * 100) / duration}%`;
-  }
+  const {position, duration} = useTrackPlayerProgress(200);
+  const percentageProgress = duration
+    ? `${(position * 100) / duration}%`
+    : '0%';
 
-  const [playing, setPlaying] = useState(false);
-  useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_STATE], (event) => {
-    setPlaying(
-      event.state === TrackPlayer.STATE_PLAYING ||
-      event.state === TrackPlayer.STATE_BUFFERING
-    );
-  });
-
+  const trackState = usePlaybackState();
+  const playing =
+    trackState === TrackPlayer.STATE_PLAYING ||
+    trackState === TrackPlayer.STATE_BUFFERING;
 
   return (
     <>
       <View style={styles.progresBar}>
-        <View style={[styles.progress, {width: percentageProgress()}]} />
+        <View style={[styles.progress, {width: percentageProgress}]} />
       </View>
       <View style={styles.timesBar}>
         <Text style={styles.time}>{secondsToTimeString(position)}</Text>
