@@ -1,25 +1,39 @@
 import RNFS from 'react-native-fs';
 import {splitPath} from '../utils';
 
-export const getLyricFiles = (path) => {
-  console.log({path});
-  if (!path) return null;
+/**
+ * @param {string} path of the song, inluding path and filename
+ * @returns array of paths to the corresponding lyrics
+ */
+export const getLyricFiles = async (path) => {
+  if (!path) return [];
 
-  const {dirname, filename, extension} = splitPath(path);
-  console.log({dirname, filename, extension});
+  const {dirname: basePath, filename} = splitPath(path);
 
-  RNFS.readdir(dirname)
-    .then((files) => {
-      console.log('GOT RESULT', files);
+  try {
+    let files = await RNFS.readdir(basePath);
 
-      let regex = new RegExp(`${filename}.*\.lrc$`);
-      let lyricFiles = files.filter((fName) => regex.test(fName));
-      console.log({lyricFiles});
+    let lrcRegex = new RegExp(`${filename}.*.lrc$`);
+    let matchingFiles = files.filter((fileName) => lrcRegex.test(fileName));
+    return matchingFiles.map((lrFileName) => basePath + lrFileName);
+  } catch (err) {
+    console.log(err.message, err.code);
+    return [];
+  }
+};
 
-      return lyricFiles.length ? lyricFiles : null;
-    })
-    .catch((err) => {
-      console.log(err.message, err.code);
-      return null;
-    });
+/**
+ * @param {string} path of the lyric file
+ * @returns {string} content of the lrc file
+ */
+export const getLyricContent = async (path) => {
+  if (!path) return '';
+
+  try {
+    let content = await RNFS.readFile(path);
+    return content;
+  } catch (err) {
+    console.log(err.message, err.code);
+    return '';
+  }
 };

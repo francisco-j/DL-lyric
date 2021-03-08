@@ -1,19 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {useTrackPlayerProgress} from 'react-native-track-player';
 import {useCurrentTrack} from '../customHooks/track';
 import {getSongName} from '../utils';
 import {getLyricFiles} from '../providers/lyric';
+// components
+import LyricContainer from '../components/LyricContainer';
 
 // LyricVew - functional component
 export default () => {
   const [currentSongOBJ] = useCurrentTrack();
-  const lyricFiles = getLyricFiles(currentSongOBJ?.path);
+  const {position} = useTrackPlayerProgress(200);
+  const [lyricFiles, setLyricFiles] = useState([]);
+
+  useEffect(() => {
+    getLyricFiles(currentSongOBJ?.path).then((fileNames) =>
+      setLyricFiles(fileNames),
+    );
+  }, [currentSongOBJ]);
 
   return (
     <View style={[St.container, St.main]}>
       <View style={[St.container]}>
-        <Text style={St.title}>LR 1</Text>
+        <LyricContainer lrcFiePath={lyricFiles[0]} time={position} />
       </View>
       <View style={St.nusicData}>
         <Text style={St.songName}>{getSongName(currentSongOBJ)}</Text>
@@ -24,7 +34,7 @@ export default () => {
         />
       </View>
       <View style={[St.container]}>
-        <Text style={St.title}>LR 2</Text>
+        <LyricContainer lrcFiePath={lyricFiles[1]} time={position} />
       </View>
     </View>
   );
@@ -52,35 +62,6 @@ const St = StyleSheet.create({
     backgroundColor: '#b0b0b0',
     width: '96%',
     borderRadius: 2,
-  },
-  progresBar: {
-    display: 'flex',
-    height: 4,
-    backgroundColor: 'white',
-    justifyContent: 'flex-start',
-  },
-  progress: {
-    height: '100%',
-    backgroundColor: '#6e89f5',
-  },
-  playerControls: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: 80,
-    backgroundColor: '#575757',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingLeft: 60,
-    paddingRight: 60,
-  },
-  btnWraper: {
-    padding: 6,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: 'white',
-    textAlign: 'center',
   },
   songName: {
     fontSize: 20,
