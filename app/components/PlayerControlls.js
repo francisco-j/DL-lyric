@@ -8,7 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {secondsToTimeString} from '../utils';
 
 export default () => {
-  const {position, duration} = useTrackPlayerProgress(200);
+  const {position, duration} = useTrackPlayerProgress(100);
   const percentageProgress = duration
     ? `${(position * 100) / duration}%`
     : '0%';
