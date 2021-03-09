@@ -11,7 +11,8 @@ import LyricContainer from '../components/LyricContainer';
 // LyricVew - functional component
 export default () => {
   const [currentSongOBJ] = useCurrentTrack();
-  const {position} = useTrackPlayerProgress(200);
+  const {position: seconds} = useTrackPlayerProgress(100);
+  const milliseconds = seconds * 1000;
   const [lyricFiles, setLyricFiles] = useState([]);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export default () => {
   return (
     <View style={[St.container, St.main]}>
       <View style={[St.container]}>
-        <LyricContainer lrcFiePath={lyricFiles[0]} time={position} />
+        <LyricContainer lrcFiePath={lyricFiles[0]} time={milliseconds} />
       </View>
       <View style={St.nusicData}>
         <Text style={St.songName}>{getSongName(currentSongOBJ)}</Text>
@@ -34,7 +35,7 @@ export default () => {
         />
       </View>
       <View style={[St.container]}>
-        <LyricContainer lrcFiePath={lyricFiles[1]} time={position} />
+        <LyricContainer lrcFiePath={lyricFiles[1]} time={milliseconds} />
       </View>
     </View>
   );
