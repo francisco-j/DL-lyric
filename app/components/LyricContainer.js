@@ -1,7 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Text, StyleSheet} from 'react-native';
-// https://github.com/wubocong/react-native-lrc
-// https://www.npmjs.com/package/react-native-lrc
 import {Lrc} from 'react-native-lrc';
 import {getLyricContent} from '../providers/lyric';
 

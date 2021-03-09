@@ -12,6 +12,11 @@ run npm from windows terminal
 
 # Documentation / References
 
+Articles
+  * [React Native Styling](https://thoughtbot.com/blog/structure-for-styling-in-react-native)
+
+
+Packages:
 * RN-track-player:
   *  [NPM](https://www.npmjs.com/package/react-native-track-player)
   *  [web docs](https://react-native-track-player.js.org/documentation/)

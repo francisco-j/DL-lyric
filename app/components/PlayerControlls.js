@@ -62,9 +62,6 @@ export default () => {
   );
 };
 
-/** check:
- * https://thoughtbot.com/blog/structure-for-styling-in-react-native
- */
 const styles = StyleSheet.create({
   progresBar: {
     display: 'flex',
