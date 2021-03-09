@@ -6,10 +6,9 @@ import {getLyricContent} from '../providers/lyric';
 export default ({lrcFiePath, time}) => {
   if (!lrcFiePath) return <Text style={St.title}>-- no lyric --</Text>;
 
-  const [lrc, setLrc] = useState('');
+  const [lrc, setLrc] = useState('[00:00.00]loading...');
   useEffect(() => {
     getLyricContent(lrcFiePath).then((cont) => {
-      console.log(cont);
       setLrc(cont);
     });
   }, [lrcFiePath]);
@@ -24,7 +23,8 @@ export default ({lrcFiePath, time}) => {
   return (
     <Lrc
       lrc={lrc}
-      lineHeight={30}
+      lineHeight={45}
+      activeLineHeight={60}
       lineRenderer={lineRenderer}
       currentTime={time}
     />
@@ -40,14 +40,11 @@ const St = StyleSheet.create({
   },
   lrcLyne: {
     fontSize: 19,
-    fontWeight: '800',
     textAlign: 'center',
     color: '#8f8f8f',
   },
   active: {
     fontSize: 24,
-    fontWeight: '900',
-    textAlign: 'center',
     color: 'white',
   },
 });
