@@ -23,3 +23,5 @@ Packages:
 * RN-lrc
   *  [NPM](https://www.npmjs.com/package/react-native-lrc)
   *  [github](https://github.com/wubocong/react-native-lrc)
+* react-native-sliders
+  * [NPM](https://www.npmjs.com/package/react-native-sliders)

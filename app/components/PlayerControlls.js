@@ -1,28 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import TrackPlayer, {
   useTrackPlayerProgress,
   usePlaybackState,
 } from 'react-native-track-player';
+import Slider from 'react-native-sliders';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {secondsToTimeString} from '../utils';
 
 export default () => {
   const {position, duration} = useTrackPlayerProgress(100);
-  const percentageProgress = duration
-    ? `${(position * 100) / duration}%`
-    : '0%';
+  const [sliding, setSliding] = useState(false);
 
   const trackState = usePlaybackState();
   const playing =
     trackState === TrackPlayer.STATE_PLAYING ||
     trackState === TrackPlayer.STATE_BUFFERING;
 
+  const dropSlider = ([secondsValue]) => {
+    setSliding(false);
+    TrackPlayer.seekTo(secondsValue);
+  };
+
   return (
     <>
-      <View style={styles.progresBar}>
-        <View style={[styles.progress, {width: percentageProgress}]} />
-      </View>
+      <Slider
+        style={styles.slider}
+        trackStyle={styles.trackStyle}
+        thumbStyle={styles.thumbStyle}
+        thumbTouchSize={{width: 60, height: 50}}
+        value={sliding ? null : position}
+        maximumValue={duration || 100}
+        minimumTrackTintColor="#6e89f5"
+        onSlidingStart={() => setSliding(true)}
+        onSlidingComplete={dropSlider}
+        // debugTouchArea
+      />
       <View style={styles.timesBar}>
         <Text style={styles.time}>{secondsToTimeString(position)}</Text>
         <Text style={styles.time}>{secondsToTimeString(duration)}</Text>
@@ -63,6 +76,21 @@ export default () => {
 };
 
 const styles = StyleSheet.create({
+  slider: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 84,
+    marginBottom: -18,
+    zIndex: 10,
+    backgroundColor: null,
+  },
+  trackStyle: {
+    borderRadius: 0,
+  },
+  thumbStyle: {
+    height: 10,
+    width: 2,
+  },
   progresBar: {
     display: 'flex',
     height: 4,
@@ -80,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingHorizontal: 60,
-    paddingTop: 8,
+    paddingTop: 6,
     paddingBottom: 24,
   },
   timesBar: {
@@ -88,6 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#575757',
     justifyContent: 'space-between',
+    paddingTop: 2,
     paddingHorizontal: 3,
   },
   time: {
