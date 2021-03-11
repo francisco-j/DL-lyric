@@ -1,34 +1,54 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {Lrc} from 'react-native-lrc';
-import {getLyricContent} from '../providers/lyric';
+import {Text, ScrollView, StyleSheet} from 'react-native';
+import {getLyricsFromFile} from '../providers/lyric';
 
-export default ({lrcFiePath, time}) => {
+export default ({lrcFiePath, millisecond}) => {
   if (!lrcFiePath) return <Text style={St.title}>-- no lyric --</Text>;
 
-  const [lrc, setLrc] = useState('[00:00.00]loading...');
+  const [loading, setLoading] = useState(true);
+  const [lrcLines, setLlrcLines] = useState([]);
+  const [activeLine, setActiveLine] = useState(null);
+
   useEffect(() => {
-    getLyricContent(lrcFiePath).then((cont) => {
-      setLrc(cont);
+    if (!lrcFiePath) return setLoading(false);
+
+    setLoading(true);
+    getLyricsFromFile(lrcFiePath).then((arr) => {
+      setLlrcLines(arr);
+      setLoading(false);
     });
   }, [lrcFiePath]);
 
-  const lineRenderer = useCallback(
-    ({lrcLine: {content}, active}) => (
-      <Text style={[St.lrcLyne, active ? St.active : null]}>{content}</Text>
-    ),
-    [],
-  );
+  useEffect(() => {
+    let active = null;
 
-  return (
-    <Lrc
-      lrc={lrc}
-      lineHeight={45}
-      activeLineHeight={60}
-      lineRenderer={lineRenderer}
-      currentTime={time}
-    />
-  );
+    for (let i = 0; i < lrcLines.length; i++) {
+      // if condition can't be switched because millisecond is not continuous
+      if (lrcLines[i].milliseconds <= millisecond) {
+        active = i;
+        continue;
+      }
+      else break;
+    }
+
+    setActiveLine(active);
+  }, [lrcLines, millisecond]);
+
+  const renderLines = () => {
+    console.log('renderLines(');
+    return lrcLines.map((line) => {
+      let style = line.id === activeLine ? [St.lrcLyne, St.active] : St.lrcLyne;
+      return (
+        <Text style={style} key={line.id}>
+          {line.text}
+        </Text>
+      );
+    });
+  };
+
+  if (loading) return <Text style={St.title}>loading ...</Text>;
+
+  return <ScrollView>{renderLines()}</ScrollView>;
 };
 
 const St = StyleSheet.create({
@@ -39,6 +59,8 @@ const St = StyleSheet.create({
     textAlign: 'center',
   },
   lrcLyne: {
+    marginVertical: 3,
+    marginHorizontal: 2,
     fontSize: 19,
     textAlign: 'center',
     color: '#8f8f8f',

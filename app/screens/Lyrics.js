@@ -16,15 +16,13 @@ export default () => {
   const [lyricFiles, setLyricFiles] = useState([]);
 
   useEffect(() => {
-    getLyricFiles(currentSongOBJ?.path).then((fileNames) =>
-      setLyricFiles(fileNames),
-    );
+    getLyricFiles(currentSongOBJ?.path).then(setLyricFiles);
   }, [currentSongOBJ]);
 
   return (
     <View style={[St.container, St.main]}>
       <View style={[St.container]}>
-        <LyricContainer lrcFiePath={lyricFiles[0]} time={milliseconds} />
+        <LyricContainer lrcFiePath={lyricFiles[0]} millisecond={milliseconds} />
       </View>
       <View style={St.nusicData}>
         <Text style={St.songName}>{getSongName(currentSongOBJ)}</Text>
@@ -35,7 +33,7 @@ export default () => {
         />
       </View>
       <View style={[St.container]}>
-        <LyricContainer lrcFiePath={lyricFiles[1]} time={milliseconds} />
+        <LyricContainer lrcFiePath={lyricFiles[1]} millisecond={milliseconds} />
       </View>
     </View>
   );
