@@ -1,13 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, ScrollView, StyleSheet} from 'react-native';
 import {getLyricsFromFile} from '../providers/lyric';
+import {useActiveLyric} from '../customHooks/lyrycs';
 
-export default ({lrcFiePath, millisecond}) => {
-  if (!lrcFiePath) return <Text style={St.title}>-- no lyric --</Text>;
-
+const LyricContainer = ({lrcFiePath}) => {
   const [loading, setLoading] = useState(true);
   const [lrcLines, setLlrcLines] = useState([]);
-  const [activeLine, setActiveLine] = useState(null);
+  const [activeLine] = useActiveLyric(lrcLines);
 
   useEffect(() => {
     if (!lrcFiePath) return setLoading(false);
@@ -18,21 +17,6 @@ export default ({lrcFiePath, millisecond}) => {
       setLoading(false);
     });
   }, [lrcFiePath]);
-
-  useEffect(() => {
-    let active = null;
-
-    for (let i = 0; i < lrcLines.length; i++) {
-      // if condition can't be switched because millisecond is not continuous
-      if (lrcLines[i].milliseconds <= millisecond) {
-        active = i;
-        continue;
-      }
-      else break;
-    }
-
-    setActiveLine(active);
-  }, [lrcLines, millisecond]);
 
   const renderLines = () => {
     console.log('renderLines(');
@@ -46,6 +30,7 @@ export default ({lrcFiePath, millisecond}) => {
     });
   };
 
+  if (!lrcFiePath) return <Text style={St.title}>-- no lyric --</Text>;
   if (loading) return <Text style={St.title}>loading ...</Text>;
 
   return <ScrollView>{renderLines()}</ScrollView>;
@@ -70,3 +55,5 @@ const St = StyleSheet.create({
     color: 'white',
   },
 });
+
+export default React.memo(LyricContainer);

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {useTrackPlayerProgress} from 'react-native-track-player';
 import {useCurrentTrack} from '../customHooks/track';
 import {getSongName} from '../utils';
 import {getLyricFiles} from '../providers/lyric';
@@ -11,8 +10,6 @@ import LyricContainer from '../components/LyricContainer';
 // LyricVew - functional component
 export default () => {
   const [currentSongOBJ] = useCurrentTrack();
-  const {position: seconds} = useTrackPlayerProgress(100);
-  const milliseconds = seconds * 1000;
   const [lyricFiles, setLyricFiles] = useState([]);
 
   useEffect(() => {
@@ -22,7 +19,7 @@ export default () => {
   return (
     <View style={[St.container, St.main]}>
       <View style={[St.container]}>
-        <LyricContainer lrcFiePath={lyricFiles[0]} millisecond={milliseconds} />
+        <LyricContainer lrcFiePath={lyricFiles[0]} />
       </View>
       <View style={St.nusicData}>
         <Text style={St.songName}>{getSongName(currentSongOBJ)}</Text>
@@ -33,7 +30,7 @@ export default () => {
         />
       </View>
       <View style={[St.container]}>
-        <LyricContainer lrcFiePath={lyricFiles[1]} millisecond={milliseconds} />
+        <LyricContainer lrcFiePath={lyricFiles[0]} />
       </View>
     </View>
   );
