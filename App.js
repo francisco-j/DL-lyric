@@ -2,8 +2,6 @@ import React, {useEffect} from 'react';
 import {StyleSheet, StatusBar, SafeAreaView} from 'react-native';
 import TrackPlayer from 'react-native-track-player';
 
-// docs: https://www.npmjs.com/package/@fortawesome/react-native-fontawesome
-// icons: https://fontawesome.com/icons?d=gallery&p=2&c=audio-video
 import {
   faPause,
   faPlay,
