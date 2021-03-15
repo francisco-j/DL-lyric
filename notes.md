@@ -1,4 +1,5 @@
 run `npm run android` from windows terminal
+run `npm i <pakage>` from either terminal
 
 # Constants
 TrackPlayer statuses:
@@ -20,12 +21,14 @@ TrackPlayer statuses:
   * [NPM](https://www.npmjs.com/package/@fortawesome/react-native-fontawesome)
   * [audio-video icons](https://fontawesome.com/icons?d=gallery&p=2&c=audio-video)
 
-## Packages
-* RN-track-player:
+## Packages(components)
+* track-player:
   * [NPM](https://www.npmjs.com/package/react-native-track-player)
   * [web docs](https://react-native-track-player.js.org/documentation/)
-* RN-lrc
+* lrc
   * [NPM](https://www.npmjs.com/package/react-native-lrc)
   * [github](https://github.com/wubocong/react-native-lrc)
-* react-native-sliders
+* sliders
   * [NPM](https://www.npmjs.com/package/react-native-sliders)
+* picker-select
+  * [NPM](https://www.npmjs.com/package/react-native-picker-select)

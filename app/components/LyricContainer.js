@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Text, ScrollView, StyleSheet} from 'react-native';
+import {Text, ScrollView, StyleSheet, View} from 'react-native';
 import {getLyricsFromFile} from '../providers/lyric';
 import {useActiveLyric} from '../customHooks/lyrycs';
+import {Picker} from '@react-native-picker/picker';
 
 const LyricContainer = ({lrcFiePath}) => {
   const [loading, setLoading] = useState(true);
   const [lrcLines, setLlrcLines] = useState([]);
+  const [selectedFile, setSselectedFile] = useState();
   const [activeLine] = useActiveLyric(lrcLines);
 
   useEffect(() => {
@@ -33,10 +35,33 @@ const LyricContainer = ({lrcFiePath}) => {
   if (!lrcFiePath) return <Text style={St.title}>-- no lyric --</Text>;
   if (loading) return <Text style={St.title}>loading ...</Text>;
 
-  return <ScrollView>{renderLines()}</ScrollView>;
+  return (
+    <View>
+      <View style={St.pickerWraper}>
+        <Picker
+          dropdownIconColor='#ffffff'
+          style={St.Picker}
+          selectedValue={selectedFile}
+          onValueChange={(itemValue, itemIndex) =>
+            setSselectedFile(itemValue)
+          }>
+          <Picker.Item label="base" value="base" />
+          <Picker.Item label="korean" value="korean" />
+        </Picker>
+      </View>
+      <ScrollView>
+        <View style={St.scrollPading} />
+        {renderLines()}
+        <View style={St.scrollPading} />
+      </ScrollView>
+    </View>
+  );
 };
 
 const St = StyleSheet.create({
+  scrollPading: {
+    height: 135,
+  },
   title: {
     fontSize: 24,
     fontWeight: '800',
@@ -52,6 +77,20 @@ const St = StyleSheet.create({
   },
   active: {
     fontSize: 24,
+    color: 'white',
+  },
+  pickerWraper: {
+    color: 'red',
+    backgroundColor: '#000000',
+    position: 'absolute',
+    top: 5,
+    left: 4,
+    width: 120,
+    height: 25,
+    zIndex: 2,
+  },
+  Picker: {
+    height: 25,
     color: 'white',
   },
 });
