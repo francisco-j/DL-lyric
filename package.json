@@ -1,7 +1,8 @@
 {
-  "name": "DL_player",
-  "version": "0.0.1",
+  "name": "DL Player",
+  "version": "0.1.0",
   "private": true,
+  "icon": "assets/logo.png",
   "scripts": {
     "android": "react-native run-android",
     "dev": "react-native run-android",
@@ -34,5 +35,8 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "android": {
+    "package": "com.francisco.dllyric"
   }
 }

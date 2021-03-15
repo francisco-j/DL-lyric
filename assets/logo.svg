@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="800"
+   height="800"
+   viewBox="0 0 211.66666 211.66667"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="C:\Users\franc\projects\DL_player\android\app\src\main\res\mipmap-hdpi\ic_launcher.png"
+   inkscape:export-xdpi="25.400002"
+   inkscape:export-ydpi="25.400002">
+  <defs
+     id="defs2">
+    <rect
+       x="-153.08036"
+       y="65.767857"
+       width="111.88095"
+       height="107.34524"
+       id="rect858" />
+  </defs>
+  <sodipodi:namedview
+     showborder="false"
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="277.13383"
+     inkscape:cy="136.9987"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     inkscape:pagecheckerboard="true"
+     inkscape:snap-text-baseline="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1051"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       ry="5.2919364"
+       y="-5.5511151e-17"
+       x="-1.110223e-16"
+       height="72.000008"
+       width="72"
+       id="rect886"
+       style="fill:#ffffff;fill-opacity:0.897436;stroke:none;stroke-width:17.1" />
+    <path
+       id="path839-6"
+       d="M 32.034728,70.184918 C 21.45347,68.863649 12.358525,63.051003 6.6817198,53.981622 5.8137699,52.594975 4.5767656,50.103029 3.9087167,48.395428 1.5852149,42.456295 1.0008356,35.564539 2.2826321,29.218501 5.1522224,15.011464 16.525504,4.185258 30.939174,1.9404042 c 2.398045,-0.3734841 7.559122,-0.4084435 9.755489,-0.06608 7.798776,1.2156487 14.236512,4.4298086 19.61641,9.7938698 6.530802,6.511579 10.074781,15.064143 10.074781,24.313135 0,7.979085 -2.601219,15.364368 -7.625434,21.649833 -1.078009,1.348635 -3.763316,4.034594 -5.117031,5.118295 -4.811478,3.851757 -10.483635,6.337019 -16.701303,7.3177 -1.825633,0.287943 -6.996934,0.356315 -8.907358,0.117761 z"
+       style="fill:#15d7e5;fill-opacity:1;stroke:#ffffff;stroke-width:3.22829;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-xdpi="25.410618"
+       inkscape:export-ydpi="25.410618"
+       inkscape:export-filename="C:\Users\franc\projects\DL_player\android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png" />
+    <text
+       xml:space="preserve"
+       id="text856"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-0.601889px;white-space:pre;shape-inside:url(#rect858);fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.912798;"
+       transform="matrix(4.4103539,0,0,4.4103556,680.93348,-280.11293)"
+       inkscape:export-xdpi="25.410618"
+       inkscape:export-ydpi="25.410618"
+       inkscape:export-filename="C:\Users\franc\projects\DL_player\android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"><tspan
+         x="-153.08008"
+         y="75.300532"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.848262">DL</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-30.616072"
+       y="65.011909"
+       id="text864"><tspan
+         sodipodi:role="line"
+         id="tspan862"
+         x="-30.616072"
+         y="65.011909"
+         style="stroke-width:0.264583" /></text>
+  </g>
+</svg>
