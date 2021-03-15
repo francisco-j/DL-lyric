@@ -9,5 +9,5 @@ This project will remain always open source so that any one can improve on it an
 Please note the licence.
 
 # other resources
- * create lyrcs: https://lrcmaker.com/
- * find lyrics https://megalobiz.com
+ * create lyrcs https://lrcmaker.com/
+ * find lyrics https://www.lyricfinder.org/
