@@ -32,13 +32,15 @@ export const getSongName = (obj) => {
  * @return {SplitPath} Object containing fields "dirname", "filename", "extension", and "params"
  */
 export const splitPath = (path) => {
-  let result = path
+  let [dirname = '', filename = '', extension = '', params = ''] = path
     .replace(/\\/g, '/')
-    .match(/(.*\/)?(\..*?|.*?)(\.[^.]*?)?(#.*$|\?.*$|$)/);
+    .match(/(.*\/)?(\..*?|.*?)(\.[^.]*?)?(#.*$|\?.*$|$)/)
+    .slice(1);
+
   return {
-    dirname: result[1] || '',
-    filename: result[2] || '',
-    extension: result[3] || '',
-    params: result[4] || '',
-  };
+    dirname,
+    filename,
+    extension,
+    params,
+  }
 };
