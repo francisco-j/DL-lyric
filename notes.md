@@ -1,5 +1,4 @@
-run `npm run android` from windows terminal
-run `npm i <pakage>` from either terminal
+run `npm start` then run `npm run dev`
 
 # Constants
 TrackPlayer statuses:
