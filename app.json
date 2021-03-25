@@ -1,4 +1,9 @@
 {
   "name": "DL_player",
-  "displayName": "DL_player"
+  "displayName": "DL_player",
+  "icon": "./assets/logo.png/",
+  "version": "0.1.0",
+  "android": {
+    "package": "com.javier.dlplayer"
+  }
 }
