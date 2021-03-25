@@ -18,7 +18,7 @@ export const getLyricFiles = async (path) => {
     let matchingFiles = files.filter((fileName) => lrcRegex.test(fileName));
     return matchingFiles.map((lrFileName) => basePath + lrFileName);
   } catch (err) {
-    console.log(err);
+    console.log('at getLyricFiles', err);
     return [];
   }
 };

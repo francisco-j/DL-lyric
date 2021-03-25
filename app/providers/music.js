@@ -14,15 +14,30 @@ const getAllSongs = () =>
     sortOrder: Constants.SortOrder.Ascending,
   });
 
-export const requestFilesPermission = async () => {
-  try {
-    let granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-    );
-    console.log('permited', granted);
-  } catch (err) {
-    console.log(err);
+export const requestFilesPermission = async (message) => {
+  let permission = await PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+    message // can be undefined
+  );
+  console.log({permission});
+
+  if (permission === PermissionsAndroid.RESULTS.GRANTED)
+    return true
+
+  else if (permission === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN)
+    return false
+
+  else if (permission === PermissionsAndroid.RESULTS.DENIED) {
+    console.log('asking again');
+
+    return requestFilesPermission({ // recursion
+      title: 'Permission needed',
+      message: "external storage permission is needed to access device's music files",
+      buttonPositive: 'okay',
+    });
   }
+
+  else throw new Error(`Unexpected PermissionsAndroid.RESULTS: ${permission}`)
 };
 
 export const setupTrackplayer = async () => {
@@ -48,6 +63,6 @@ export const setupTrackplayer = async () => {
     });
     await TrackPlayer.add(songs);
   } catch (e) {
-    console.log(e);
+    console.log('at setupTrackplayer', e);
   }
 };

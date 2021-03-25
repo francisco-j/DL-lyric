@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, StatusBar, SafeAreaView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, StatusBar, SafeAreaView, Text, View} from 'react-native';
 import TrackPlayer from 'react-native-track-player';
 
 import {
@@ -18,19 +18,41 @@ import LyricVew from './app/screens/Lyrics';
 import PlayerControlls from './app/components/PlayerControlls';
 
 export default () => {
+  let [permissionGranted, setPermissionState] = useState(null)
+
   // on mount
   useEffect(() => {
-    requestFilesPermission();
-    setupTrackplayer();
-    console.log('mountedddd');
+    async function asyncEffectBehavior() {
+      let perm = await requestFilesPermission();
+      setPermissionState(perm)
+    }
 
-    return () => TrackPlayer.destroy();
+    console.log('mounted');
+    asyncEffectBehavior()
   }, []);
+
+  useEffect(() => {
+    if (permissionGranted) {
+      setupTrackplayer();
+      return () => TrackPlayer.destroy();
+    }
+  }, [permissionGranted]);
+
+  if (permissionGranted === false)
+    return (
+      <View style={St.permissionError}>
+        <Text style={St.permissionErrorText}>oops...</Text>
+        <Text style={St.permissionErrorText}>DL player requires special permitions.</Text>
+        <Text style={St.permissionErrorText}>Enable app permitions on phone settings.</Text>
+        <Text style={[St.permissionErrorText, {fontSize: 16}]}>{"\n"}settings > apps > DL_player > app permitions</Text>
+        <Text style={St.permissionErrorText}>{"\n\n\n\n"}you might need to fully close and reopen the app</Text>
+      </View>
+    )
 
   return (
     <>
       <StatusBar />
-      <SafeAreaView style={styles.SafeAreaView}>
+      <SafeAreaView style={St.SafeAreaView}>
         <LyricVew />
         <PlayerControlls />
       </SafeAreaView>
@@ -41,10 +63,23 @@ export default () => {
 /** check:
  * https://thoughtbot.com/blog/structure-for-styling-in-react-native
  */
-const styles = StyleSheet.create({
+const St = StyleSheet.create({
   SafeAreaView: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
+  },
+  permissionError: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black'
+  },
+  permissionErrorText: {
+    color: 'white',
+    margin: 7,
+    fontSize: 24,
+    textAlign: 'center'
   },
 });
