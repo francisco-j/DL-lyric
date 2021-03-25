@@ -19,6 +19,7 @@ TrackPlayer statuses:
 * fontawesome:
   * [NPM](https://www.npmjs.com/package/@fortawesome/react-native-fontawesome)
   * [audio-video icons](https://fontawesome.com/icons?d=gallery&p=2&c=audio-video)
+  * [cheatsheet](https://fontawesome.com/cheatsheet)
 
 ## Packages(components)
 * track-player:

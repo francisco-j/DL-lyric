@@ -18,6 +18,7 @@ import LyricVew from './app/screens/Lyrics';
 import PlayerControlls from './app/components/PlayerControlls';
 
 export default () => {
+  // refresh on reopen: https://stackoverflow.com/questions/59637462/how-to-have-page-re-rendered-after-exiting-and-re-opening-the-app
   let [permissionGranted, setPermissionState] = useState(null)
 
   // on mount
