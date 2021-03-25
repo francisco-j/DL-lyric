@@ -11,15 +11,34 @@ import LyricContainer from '../components/LyricContainer';
 export default () => {
   const [currentSongOBJ] = useCurrentTrack();
   const [lyricFiles, setLyricFiles] = useState([]);
+  const [firstLrc, setFirstLrc] = useState(null);
+  const [secondLrc, setSecondLrc] = useState(null);
 
   useEffect(() => {
-    getLyricFiles(currentSongOBJ?.path).then(setLyricFiles);
+    getLyricFiles(currentSongOBJ?.path).then((lrcFiles) => {
+      setLyricFiles(lrcFiles)
+      if (lrcFiles[0])
+        setFirstLrc(lrcFiles[0].path)
+      if (lrcFiles[1])
+        setSecondLrc(lrcFiles[1].path)
+    });
   }, [currentSongOBJ]);
+
+  const changeLrc = (path, index) => {
+    if (index === 0)
+      setFirstLrc(path)
+    else
+      setSecondLrc(path)
+  }
 
   return (
     <View style={[St.container, St.main]}>
       <View style={[St.container]}>
-        <LyricContainer lrcFiePath={lyricFiles[0]} />
+        <LyricContainer
+          lrcFiePath={firstLrc}
+          filesOptions={lyricFiles}
+          selectOption={(lrcPath) => changeLrc(lrcPath, 0)} // react-native-picker method signature: (itemValue, itemIndex) => {}
+        />
       </View>
       <View style={St.nusicData}>
         <Text style={St.songName}>{getSongName(currentSongOBJ)}</Text>
@@ -30,7 +49,11 @@ export default () => {
         />
       </View>
       <View style={[St.container]}>
-        <LyricContainer lrcFiePath={lyricFiles[0]} />
+        <LyricContainer
+          lrcFiePath={secondLrc}
+          filesOptions={lyricFiles}
+          selectOption={(lrcPath) => changeLrc(lrcPath, 1)} // react-native-picker method signature: (itemValue, itemIndex) => {}
+        />
       </View>
     </View>
   );

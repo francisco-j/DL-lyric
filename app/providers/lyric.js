@@ -3,20 +3,24 @@ import {splitPath} from '../utils';
 const LYRIC_REGEX = /^\[\d\d:\d\d.\d\d\]/;
 
 /**
- * @param {string} path of the song, inluding path and filename
+ * @param {string} songPath of the song, inluding path and filename
  * @returns array of paths to the corresponding lyrics
  */
-export const getLyricFiles = async (path) => {
-  if (!path) return [];
+export const getLyricFiles = async (songPath) => {
+  if (!songPath) return [];
 
-  const {dirname: basePath, filename} = splitPath(path);
+  const {dirname: basePath, filename: songName} = splitPath(songPath);
 
   try {
     let files = await RNFS.readdir(basePath);
 
-    let lrcRegex = new RegExp(`${filename}.*.lrc$`);
+    let lrcRegex = new RegExp(`${songName}.*.lrc$`);
     let matchingFiles = files.filter((fileName) => lrcRegex.test(fileName));
-    return matchingFiles.map((lrFileName) => basePath + lrFileName);
+
+    return matchingFiles.map((lrFileName) => ({
+      path: basePath + lrFileName,
+      name: lrFileName.replace(songName, '').replace('.lrc', '') || "-"
+    }));
   } catch (err) {
     console.log('at getLyricFiles', err);
     return [];

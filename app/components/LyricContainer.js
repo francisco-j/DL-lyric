@@ -4,10 +4,9 @@ import {getLyricsFromFile} from '../providers/lyric';
 import {useActiveLyric} from '../customHooks/lyrycs';
 import {Picker} from '@react-native-picker/picker';
 
-const LyricContainer = ({lrcFiePath}) => {
+const LyricContainer = ({lrcFiePath, filesOptions, selectOption}) => {
   const [loading, setLoading] = useState(true);
   const [lrcLines, setLlrcLines] = useState([]);
-  const [selectedFile, setSselectedFile] = useState();
   const [activeLine] = useActiveLyric(lrcLines);
 
   useEffect(() => {
@@ -41,12 +40,11 @@ const LyricContainer = ({lrcFiePath}) => {
         <Picker
           dropdownIconColor='#ffffff'
           style={St.Picker}
-          selectedValue={selectedFile}
-          onValueChange={(itemValue, itemIndex) =>
-            setSselectedFile(itemValue)
-          }>
-          <Picker.Item label="base" value="base" />
-          <Picker.Item label="korean" value="korean" />
+          selectedValue={lrcFiePath}
+          onValueChange={selectOption}>
+          {filesOptions.map(opt => 
+            <Picker.Item label={opt.name} value={opt.path} key={opt.path}/>
+          )}
         </Picker>
       </View>
       <ScrollView>
