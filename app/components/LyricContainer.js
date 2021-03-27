@@ -82,10 +82,10 @@ const St = StyleSheet.create({
     backgroundColor: '#000000',
     position: 'absolute',
     top: 5,
-    left: 4,
+    right: 4,
     width: 120,
     height: 25,
-    zIndex: 2,
+    zIndex: 1,
   },
   Picker: {
     height: 25,
