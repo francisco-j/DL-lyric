@@ -8,7 +8,7 @@ import {getLyricFiles} from '../providers/lyric';
 import LyricContainer from '../components/LyricContainer';
 
 // LyricVew - functional component
-export default () => {
+export default ({navigation}) => {
   const [currentSongOBJ] = useCurrentTrack();
   const [lyricFiles, setLyricFiles] = useState([]);
   const [firstLrc, setFirstLrc] = useState(null);
@@ -33,6 +33,14 @@ export default () => {
 
   return (
     <View style={[St.container, St.main]}>
+      <FontAwesomeIcon
+        style={St.backBtn}
+        size={26}
+        icon="arrow-left"
+        onPress={() =>{
+          navigation.goBack()
+        }}
+      />
       <View style={[St.container]}>
         <LyricContainer
           lrcFiePath={firstLrc}
@@ -89,5 +97,12 @@ const St = StyleSheet.create({
   },
   FontAwesomeIcon: {
     color: 'white',
+  },
+  backBtn: {
+    color: 'white',
+    position: 'absolute',
+    top: 15,
+    left: 12,
+    zIndex: 1,
   },
 });

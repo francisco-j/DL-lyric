@@ -1,24 +1,23 @@
+import 'react-native-gesture-handler';
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, StatusBar, SafeAreaView, Text, View} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import TrackPlayer from 'react-native-track-player';
-
-import {
-  faPause,
-  faPlay,
-  faEllipsisH,
-  faStepForward,
-  faStepBackward,
-} from '@fortawesome/free-solid-svg-icons';
+import {faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {library as fontAwesome} from '@fortawesome/fontawesome-svg-core';
-fontAwesome.add(faPause, faPlay, faEllipsisH, faStepForward, faStepBackward);
-
+import { NavigationContainer } from '@react-navigation/native';
 import {requestFilesPermission, setupTrackplayer} from './app/providers/music';
-
-import LyricVew from './app/screens/Lyrics';
+import PermissionDenied from './app/components/PermissionDenied';
 import PlayerControlls from './app/components/PlayerControlls';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+// screens
+import SongsList from './app/screens/SongsList';
+import LyricVew from './app/screens/Lyrics';
+
+// globally add icons to use anywhere
+fontAwesome.add(faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft);
 
 export default () => {
-  // refresh on reopen: https://stackoverflow.com/questions/59637462/how-to-have-page-re-rendered-after-exiting-and-re-opening-the-app
+  // refresh on reopen: https://stackoverflow.com/questions/59637462
   let [permissionGranted, setPermissionState] = useState(null)
 
   // on mount
@@ -27,8 +26,6 @@ export default () => {
       let perm = await requestFilesPermission();
       setPermissionState(perm)
     }
-
-    console.log('mounted');
     asyncEffectBehavior()
   }, []);
 
@@ -40,24 +37,26 @@ export default () => {
   }, [permissionGranted]);
 
   if (permissionGranted === false)
-    return (
-      <View style={St.permissionError}>
-        <Text style={St.permissionErrorText}>oops...</Text>
-        <Text style={St.permissionErrorText}>DL player requires special permitions.</Text>
-        <Text style={St.permissionErrorText}>Enable app permitions on phone settings.</Text>
-        <Text style={[St.permissionErrorText, {fontSize: 16}]}>{"\n"}settings > apps > DL_player > app permitions</Text>
-        <Text style={St.permissionErrorText}>{"\n\n\n\n"}you might need to fully close and reopen the app</Text>
-      </View>
-    )
+    return <PermissionDenied />
 
+
+  const Stack = createStackNavigator();
   return (
-    <>
-      <StatusBar />
-      <SafeAreaView style={St.SafeAreaView}>
-        <LyricVew />
-        <PlayerControlls />
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={St.SafeAreaView}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{header: () => null}}>
+          <Stack.Screen name="SongsList" component={SongsList} />
+          <Stack.Screen 
+            name="LyricVew"
+            component={LyricVew}
+            options={{
+              cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+            }}          
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <PlayerControlls />
+    </SafeAreaView>
   );
 };
 
@@ -69,18 +68,5 @@ const St = StyleSheet.create({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-  },
-  permissionError: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black'
-  },
-  permissionErrorText: {
-    color: 'white',
-    margin: 7,
-    fontSize: 24,
-    textAlign: 'center'
   },
 });
