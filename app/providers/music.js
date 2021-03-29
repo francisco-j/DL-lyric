@@ -19,7 +19,6 @@ export const requestFilesPermission = async (message) => {
     PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
     message // can be undefined
   );
-  console.log({permission});
 
   if (permission === PermissionsAndroid.RESULTS.GRANTED)
     return true

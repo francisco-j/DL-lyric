@@ -41,7 +41,7 @@ const LyricContainer = ({lrcFiePath, filesOptions, selectOption}) => {
           dropdownIconColor='#ffffff'
           style={St.Picker}
           selectedValue={lrcFiePath}
-          onValueChange={selectOption}>
+          onValueChange={selectOption} >
           {filesOptions.map(opt => 
             <Picker.Item label={opt.name} value={opt.path} key={opt.path}/>
           )}
@@ -78,7 +78,6 @@ const St = StyleSheet.create({
     color: 'white',
   },
   pickerWraper: {
-    color: 'red',
     backgroundColor: '#000000',
     position: 'absolute',
     top: 5,
