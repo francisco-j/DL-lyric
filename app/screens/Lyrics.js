@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {useCurrentTrack} from '../customHooks/track';
 import {getSongName} from '../utils';
@@ -33,14 +33,18 @@ export default ({navigation}) => {
 
   return (
     <View style={[St.container, St.main]}>
-      <FontAwesomeIcon
+      <TouchableOpacity
         style={St.backBtn}
-        size={26}
-        icon="arrow-left"
         onPress={() =>{
           navigation.goBack()
         }}
-      />
+      >
+        <FontAwesomeIcon
+          style={St.icon}
+          size={26}
+          icon="arrow-left"
+        />
+      </TouchableOpacity>
       <View style={[St.container]}>
         <LyricContainer
           lrcFiePath={firstLrc}
@@ -99,10 +103,18 @@ const St = StyleSheet.create({
     color: 'white',
   },
   backBtn: {
-    color: 'white',
     position: 'absolute',
-    top: 15,
-    left: 12,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 12,
+    left: 10,
+    height: 37,
+    width: 37,
+    borderRadius: 15,
     zIndex: 1,
+  },
+  icon: {
+    color: 'white',
   },
 });

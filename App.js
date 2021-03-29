@@ -4,14 +4,10 @@ import {StyleSheet, SafeAreaView} from 'react-native';
 import TrackPlayer from 'react-native-track-player';
 import {faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {library as fontAwesome} from '@fortawesome/fontawesome-svg-core';
-import { NavigationContainer } from '@react-navigation/native';
 import {requestFilesPermission, setupTrackplayer} from './app/providers/music';
 import PermissionDenied from './app/components/PermissionDenied';
 import PlayerControlls from './app/components/PlayerControlls';
-import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
-// screens
-import SongsList from './app/screens/SongsList';
-import LyricVew from './app/screens/Lyrics';
+import Screens from './app/screens';
 
 // globally add icons to use anywhere
 fontAwesome.add(faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft);
@@ -40,21 +36,9 @@ export default () => {
     return <PermissionDenied />
 
 
-  const Stack = createStackNavigator();
   return (
     <SafeAreaView style={St.SafeAreaView}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{header: () => null}}>
-          <Stack.Screen name="SongsList" component={SongsList} />
-          <Stack.Screen 
-            name="LyricVew"
-            component={LyricVew}
-            options={{
-              cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-            }}          
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Screens />
       <PlayerControlls />
     </SafeAreaView>
   );
