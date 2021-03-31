@@ -10,7 +10,7 @@ export default ({navigation}) => {
       onPress={navigation.goBack}
     >
       <FontAwesomeIcon
-        style={St.icon}
+        style={{color: 'white'}}
         size={26}
         icon="arrow-left"
       />
@@ -30,9 +30,6 @@ const St = StyleSheet.create({
     width: 37,
     borderRadius: 15,
     zIndex: 1,
-  },
-  icon: {
-    color: 'white',
-  },
+  }
 });
 

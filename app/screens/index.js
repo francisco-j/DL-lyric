@@ -15,8 +15,8 @@ export default () => {
   return (
     <NavigationContainer>
         <Stack.Navigator screenOptions={{
-            header: () => null,
-            cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid
+          header: () => null,
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid
         }}>
           <Stack.Screen name="home" component={SongsList} />
           <Stack.Screen name="LyricVew" component={LyricVew}/>

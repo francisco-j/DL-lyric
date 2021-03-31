@@ -2,7 +2,6 @@ import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
 
 export default () => {
-  console.log('PermissionDenied')
   return (
     <View style={St.container}>
       <Text style={St.text}>oops...</Text>

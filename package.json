@@ -9,7 +9,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "cd android; ./gradlew bundleRelease; cd .."
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",

@@ -37,7 +37,7 @@ export default ({navigation}) => {
   }
 
   return (
-    <View style={[St.container, St.main]}>
+    <View style={[St.container]}>
       <BackBtn navigation={navigation}/>
       <View style={[St.container]}>
         <LyricContainer
@@ -66,9 +66,6 @@ export default ({navigation}) => {
 };
 
 const St = StyleSheet.create({
-  main: {
-    flex: 9,
-  },
   container: {
     display: 'flex',
     flex: 1,
