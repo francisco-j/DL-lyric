@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {useCurrentTrack} from '../customHooks/track';
 import {getSongName} from '../utils';
 import {getLyricFiles} from '../providers/lyric';
 // components
 import LyricContainer from '../components/LyricContainer';
+import BackBtn from '../components/BackBtn';
 
 // Lyrics - functional component
 export default ({navigation}) => {
@@ -37,18 +38,7 @@ export default ({navigation}) => {
 
   return (
     <View style={[St.container, St.main]}>
-      <TouchableOpacity
-        style={St.backBtn}
-        onPress={() =>{
-          navigation.goBack()
-        }}
-      >
-        <FontAwesomeIcon
-          style={St.icon}
-          size={26}
-          icon="arrow-left"
-        />
-      </TouchableOpacity>
+      <BackBtn navigation={navigation}/>
       <View style={[St.container]}>
         <LyricContainer
           lrcFiePath={firstLrc}
@@ -104,21 +94,6 @@ const St = StyleSheet.create({
     textAlign: 'center',
   },
   FontAwesomeIcon: {
-    color: 'white',
-  },
-  backBtn: {
-    position: 'absolute',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 12,
-    left: 10,
-    height: 37,
-    width: 37,
-    borderRadius: 15,
-    zIndex: 1,
-  },
-  icon: {
     color: 'white',
   },
 });
