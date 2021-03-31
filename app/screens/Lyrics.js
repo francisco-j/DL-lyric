@@ -7,12 +7,16 @@ import {getLyricFiles} from '../providers/lyric';
 // components
 import LyricContainer from '../components/LyricContainer';
 
-// LyricVew - functional component
+// Lyrics - functional component
 export default ({navigation}) => {
-  const [currentSongOBJ] = useCurrentTrack();
+  const [currentSongOBJ, fireCurrentSongRefresh] = useCurrentTrack();
   const [lyricFiles, setLyricFiles] = useState([]);
   const [firstLrc, setFirstLrc] = useState(null);
   const [secondLrc, setSecondLrc] = useState(null);
+
+  useEffect(() => {
+    fireCurrentSongRefresh()
+  }, []);
 
   useEffect(() => {
     getLyricFiles(currentSongOBJ?.path).then((lrcFiles) => {

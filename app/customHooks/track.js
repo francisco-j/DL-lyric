@@ -19,5 +19,15 @@ export const useCurrentTrack = () => {
     return setCurrentTrack(trackObj);
   });
 
-  return [currentTrack];
+  const fireRefresh = async() => {
+    const trackId = await TrackPlayer.getCurrentTrack();
+    if (!trackId) return
+
+    const trackObj = await TrackPlayer.getTrack(trackId);
+    if (!trackObj) return setCurrentTrack(null);
+
+    return setCurrentTrack(trackObj);
+  }
+
+  return [currentTrack, fireRefresh];
 };
