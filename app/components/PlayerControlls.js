@@ -26,9 +26,9 @@ export default () => {
   return (
     <>
       <Slider
-        style={St.slider}
-        trackStyle={St.trackStyle}
-        thumbStyle={St.thumbStyle}
+        style={styles.slider}
+        trackStyle={styles.trackStyle}
+        thumbStyle={styles.thumbStyle}
         thumbTouchSize={{width: 60, height: 50}}
         value={sliding ? null : position}
         maximumValue={duration || 100}
@@ -37,17 +37,17 @@ export default () => {
         onSlidingComplete={dropSlider}
         // debugTouchArea
       />
-      <View style={St.timesBar}>
-        <Text style={St.time}>{secondsToTimeString(position)}</Text>
-        <Text style={St.time}>{secondsToTimeString(duration)}</Text>
+      <View style={styles.timesBar}>
+        <Text style={styles.time}>{secondsToTimeString(position)}</Text>
+        <Text style={styles.time}>{secondsToTimeString(duration)}</Text>
       </View>
 
-      <View style={St.playerControls}>
+      <View style={styles.playerControls}>
         <TouchableOpacity
           onPress={() => navigate('LyricVew')}
-          style={[St.btnWraper, St.floatingIcon]}>
+          style={[styles.btnWraper, styles.floatingIcon]}>
           <FontAwesomeIcon
-            style={St.FontAwesomeIcon}
+            style={styles.FontAwesomeIcon}
             size={20}
             icon="music"
           />
@@ -55,9 +55,9 @@ export default () => {
 
         <TouchableOpacity
           onPress={() => TrackPlayer.skipToPrevious()}
-          style={St.btnWraper}>
+          style={styles.btnWraper}>
           <FontAwesomeIcon
-            style={St.FontAwesomeIcon}
+            style={styles.FontAwesomeIcon}
             size={25}
             icon="step-backward"
           />
@@ -66,18 +66,18 @@ export default () => {
           onPress={() => {
             playing ? TrackPlayer.pause() : TrackPlayer.play();
           }}
-          style={St.btnWraper}>
+          style={styles.btnWraper}>
           <FontAwesomeIcon
-            style={St.FontAwesomeIcon}
+            style={styles.FontAwesomeIcon}
             size={25}
             icon={playing ? 'pause' : 'play'}
           />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => TrackPlayer.skipToNext()}
-          style={St.btnWraper}>
+          style={styles.btnWraper}>
           <FontAwesomeIcon
-            style={St.FontAwesomeIcon}
+            style={styles.FontAwesomeIcon}
             size={25}
             icon="step-forward"
           />
@@ -87,7 +87,7 @@ export default () => {
   );
 };
 
-const St = StyleSheet.create({
+const styles = StyleSheet.create({
   slider: {
     width: '100%',
     position: 'absolute',
