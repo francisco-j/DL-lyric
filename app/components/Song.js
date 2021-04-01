@@ -47,7 +47,7 @@ const St = StyleSheet.create({
   },
   artist: {
     color: 'white',
-    fontSize: 24,
+    fontSize: 16,
   },
 });
 
