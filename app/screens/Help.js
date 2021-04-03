@@ -13,13 +13,13 @@ export default ({navigation}) => {
       </Text>
 
       <Text style={{color: '#fff', fontSize: 20, marginTop: 45}}>
-        Songs must be locally stored on your device
+        1- Songs must be locally stored on your device
       </Text>
       <Text style={{color: '#fff', fontSize: 20, marginTop: 70}}>
-        Lyric files must be stored on same location as the corresponding song
+        2- Lyric files must be stored in the same location as it's song
       </Text>
       <Text style={{color: '#fff', fontSize: 20, marginTop: 70}}>
-        Lyric file names must start with the name of the corresponding song, then a dot and language.
+        3- Lyric file names must start with the name of it's song, optionally include a dot and language.
       </Text>
       <Text style={{color: '#fff', fontSize: 15}}>
         <Text style={{color: '#fff', fontSize: 18}}>
