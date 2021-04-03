@@ -8,17 +8,18 @@ import Song from '../components/Song';
 export default ({navigation}) => {
   let [queue, setQueue] = useState([])
 
+  const refreshQueue = async () => {
+    let Q = await TrackPlayer.getQueue();
+    setQueue(Q)
+  }
+
   useEffect(() => {
-    async function asyncEffectBehavior() {
-      let Q = await TrackPlayer.getQueue();
-      setQueue(Q)
-    }
-    asyncEffectBehavior()
+    refreshQueue()
   }, []);
 
   const renderSongs = () => queue.map(track =>
     <Song navigation={navigation} track={track} key={track.id}/>
-  );
+  )
 
   return (
     <View style={[St.container]}>
@@ -42,6 +43,17 @@ export default ({navigation}) => {
       </View>
 
       {renderSongs()}
+      
+      <TouchableOpacity
+        onPress={refreshQueue}
+        style={{marginTop: 100}}
+      >
+        <FontAwesomeIcon
+          style={{color: 'white', marginHorizontal: 5}}
+          size={26}
+          icon="sync"
+        />
+      </TouchableOpacity>
     </View>
   );
 };
