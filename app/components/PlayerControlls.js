@@ -44,7 +44,10 @@ export default () => {
 
       <View style={styles.playerControls}>
         <TouchableOpacity
-          onPress={() => navigate('LyricVew')}
+          onPress={() => {
+            navigate('Home')
+            navigate('LyricVew')
+          }}
           style={[styles.btnWraper, styles.floatingIcon]}>
           <FontAwesomeIcon
             style={styles.FontAwesomeIcon}

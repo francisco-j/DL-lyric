@@ -19,7 +19,7 @@ export default () => {
         header: () => null,
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid
       }}>
-        <Stack.Screen name="home" component={SongsList} />
+        <Stack.Screen name="Home" component={SongsList} />
         <Stack.Screen name="LyricVew" component={LyricVew}/>
         <Stack.Screen name="Help" component={Help}/>
         <Stack.Screen name="Info" component={Info}/>
