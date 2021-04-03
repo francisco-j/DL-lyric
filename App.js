@@ -2,13 +2,13 @@ import 'react-native-gesture-handler';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import TrackPlayer from 'react-native-track-player';
-import {library as fontAwesome} from '@fortawesome/fontawesome-svg-core';
 import {requestFilesPermission, setupTrackplayer} from './app/providers/music';
 import PermissionDenied from './app/components/PermissionDenied';
 import PlayerControlls from './app/components/PlayerControlls';
 import Screens from './app/screens';
 
 // globally add icons to use anywhere
+import {library as fontAwesome} from '@fortawesome/fontawesome-svg-core';
 import {faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft, faInfoCircle, faQuestion, faMusic, faSync} from '@fortawesome/free-solid-svg-icons';
 import {faGithub} from '@fortawesome/free-brands-svg-icons'
 fontAwesome.add(faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft, faGithub, faInfoCircle, faQuestion, faMusic, faSync);
