@@ -61,6 +61,8 @@ export const setupTrackplayer = async () => {
       compactCapabilities: desiredCapabilities,
     });
     await TrackPlayer.add(songs);
+
+    return songs
   } catch (e) {
     console.log('at setupTrackplayer', e);
   }

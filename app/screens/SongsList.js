@@ -1,23 +1,14 @@
-import React, {useEffect, useState}  from 'react';
+import React, {useContext}  from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import TrackPlayer from 'react-native-track-player';
 import Song from '../components/Song';
+import {Context} from "../store/useGlobalState";
 
 // LyricVew - functional component
 export default ({navigation}) => {
-  let [queue, setQueue] = useState([])
+  const {globalState} = useContext(Context)
 
-  const refreshQueue = async () => {
-    let Q = await TrackPlayer.getQueue();
-    setQueue(Q)
-  }
-
-  useEffect(() => {
-    refreshQueue()
-  }, []);
-
-  const renderSongs = () => queue.map(track =>
+  const renderSongs = () => globalState.queue.map(track =>
     <Song navigation={navigation} track={track} key={track.id}/>
   )
 
@@ -43,17 +34,6 @@ export default ({navigation}) => {
       </View>
 
       {renderSongs()}
-      
-      <TouchableOpacity
-        onPress={refreshQueue}
-        style={{marginTop: 100}}
-      >
-        <FontAwesomeIcon
-          style={{color: 'white', marginHorizontal: 5}}
-          size={26}
-          icon="sync"
-        />
-      </TouchableOpacity>
     </View>
   );
 };

@@ -6,6 +6,7 @@ import {requestFilesPermission, setupTrackplayer} from './app/providers/music';
 import PermissionDenied from './app/components/PermissionDenied';
 import PlayerControlls from './app/components/PlayerControlls';
 import Screens from './app/screens';
+import useGlobalState, {Context} from "./app/store/useGlobalState";
 
 // globally add icons to use anywhere
 import {library as fontAwesome} from '@fortawesome/fontawesome-svg-core';
@@ -27,8 +28,13 @@ export default () => {
   }, []);
 
   useEffect(() => {
+    async function asyncEffectBehavior() {
+      let songs = await setupTrackplayer();
+      store.globalDispatch({type: 'UPDATE_QUEUE', payload: songs})
+    }
+
     if (permissionGranted) {
-      setupTrackplayer();
+      asyncEffectBehavior()
       return () => TrackPlayer.destroy();
     }
   }, [permissionGranted]);
@@ -36,11 +42,14 @@ export default () => {
   if (permissionGranted === false)
     return <PermissionDenied />
 
+  const store = useGlobalState()
   return (
-    <SafeAreaView style={St.SafeAreaView}>
-      <Screens />
-      <PlayerControlls />
-    </SafeAreaView>
+    <Context.Provider value={store}>
+      <SafeAreaView style={St.SafeAreaView}>
+        <Screens />
+        <PlayerControlls />
+      </SafeAreaView>
+    </Context.Provider>
   );
 };
 
