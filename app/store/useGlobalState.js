@@ -7,11 +7,12 @@ const reducer = (state, action) => {
 
     switch (action.type) {
         case 'UPDATE_QUEUE':
-            return {
-                queue: action.payload
+            return { ...state,
+                queue: action.payload,
+                loadingSongs: false
             };
         case 'SET_ERROR':
-            return {
+            return { ...state,
                 error: action.payload
             };
         default:

@@ -1,5 +1,6 @@
 const InitialState = {
     queue: [],
+    loadingSongs: true,
     error: null
 };
 

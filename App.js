@@ -10,9 +10,9 @@ import useGlobalState, {Context} from "./app/store/useGlobalState";
 
 // globally add icons to use anywhere
 import {library as fontAwesome} from '@fortawesome/fontawesome-svg-core';
-import {faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft, faInfoCircle, faQuestion, faMusic, faSync} from '@fortawesome/free-solid-svg-icons';
+import {faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft, faInfoCircle, faQuestion, faMusic, faSync, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {faGithub} from '@fortawesome/free-brands-svg-icons'
-fontAwesome.add(faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft, faGithub, faInfoCircle, faQuestion, faMusic, faSync);
+fontAwesome.add(faPause, faPlay, faEllipsisH, faStepForward, faStepBackward, faArrowLeft, faGithub, faInfoCircle, faQuestion, faMusic, faSync, faSpinner);
 
 export default () => {
   // refresh on reopen: https://stackoverflow.com/questions/59637462
